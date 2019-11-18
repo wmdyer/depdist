@@ -33,6 +33,8 @@ When given a file containing distances, `npsort.py` will generate an output file
 ```
 
 ## Results
-At the Second Multilingual Surface Realization Shared Task in Hong Kong, Nov 3, 2019, the DepDist system performed in the middle of the other submissions.
+At the Second Multilingual Surface Realization Shared Task in Hong Kong, Nov 3, 2019 [(Mille et al., 2019)](https://www.aclweb.org/anthology/D19-63.pdf), the DepDist system performed in the middle of the other submissions.
 
 ![shared task](/img/results.png)
+
+NB: The shared task included inflection, a subtask not included in this repo.
