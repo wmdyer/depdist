@@ -32,3 +32,7 @@ When given a file containing distances, `npsort.py` will generate an output file
 # text = a hearing is scheduled on the issue tomorrow
 ```
 
+## Results
+At the Second Multilingual Surface Realization Shared Task in Hong Kong, Nov 3, 2019, the DepDist system performed in the middle of the other submissions.
+
+![shared task](/img/results.png)
