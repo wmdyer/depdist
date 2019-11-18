@@ -8,9 +8,6 @@ import numpy as np
 import sys, operator
 warnings.simplefilter(action='ignore', category=FutureWarning)
 
-verbose = False
-projective = True
-
 def load_data(filename):
     df = pd.read_csv(str(filename), sep="\t",error_bad_lines=False, engine='python', comment= '# ', quoting=3)
     return df
@@ -23,7 +20,6 @@ def print_progress(i, n):
     return i +1
 
 def linearize(df, sid):
-    #df.columns = ['idx', 'word', 'd', 'h', 'dist']
     df = update_indexes(df, 0)
     sentence = ""
     for word in df.sort_values(by=['idx'])['word'].values:
@@ -31,7 +27,6 @@ def linearize(df, sid):
     return sentence
 
 def update_indexes(df, head):
-    #print(head)
     deps = df.loc[df['hid'] == head]
     for d,dep in deps.iterrows():
         try:
