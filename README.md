@@ -27,5 +27,8 @@ Output is a series of `distance_<epoch>.<conllu>.dev` files containing dependenc
 `python npsort.py <distance_file> <output_file>`
 
 When given a file containing distances, `npsort.py` will generate an output file in the following format:
-  `# sent_id = [0-9]*`
-  `# text = This is an example sentence.`
+```
+# sent_id = 1
+# text = a hearing is scheduled on the issue tomorrow
+```
+
