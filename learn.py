@@ -246,7 +246,7 @@ if __name__ == '__main__':
     print(" test: " + str(test_tuples['input'].n_node.shape[0]))
 
     BATCH_SIZE = 100
-    NUM_MPNN = 2
+    NUM_MPNN = 6
     LEARNING_RATE = 1e-3
     NUM_EPOCHS = 10
     NUM_TRAINING_ITERS = 100
