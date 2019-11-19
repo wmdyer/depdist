@@ -9,6 +9,9 @@ import sonnet as snt
 import tensorflow as tf
 import sys, pickle, math, argparse
 
+from sklearn.preprocessing import StandardScaler
+from sklearn.decomposition import PCA
+
 from graph_nets import blocks
 from graph_nets import graphs
 from graph_nets import modules
@@ -38,7 +41,12 @@ def load_ud_file(filename):
 
 def load_vectors(filename):
     df = pd.read_csv(filename, sep='["]* ["]*', header=None, error_bad_lines=False, engine='python', index_col=0)
+    x = run_pca(df.values)
+    w = df.index
+    df = pd.concat([pd.DataFrame(w), pd.DataFrame(x)], axis=1)
     glove = {key: val.values for key, val in df.T.items()}
+    print(glove)
+    exit()
     return glove
 
 def get_word_vector(word, vecs):
@@ -46,6 +54,14 @@ def get_word_vector(word, vecs):
         return vecs.loc[vecs[0] == word].values[0][1:]
     except:
         return np.zeros(vecs.shape[1]-1)
+    
+def run_pca(x):
+    xdim = x.shape[1]
+    pca = PCA(0.5)
+    x = StandardScaler().fit_transform(x)
+    principalComponents = pca.fit_transform(x)
+    print("pca: " + str(xdim) + " -> " + str(pca.n_components_))
+    return principalComponents
 
 def one_hot(codes, values):
     code = np.zeros(len(codes))
@@ -219,6 +235,7 @@ def output_dist_file(ud, values, epoch, otype):
             pass
     outfile.close()
 
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='learn dep distances')
     parser.add_argument('-u','--ud', nargs='+', dest='ud', help='<Required> directories containing conllu files', required=True)
@@ -245,18 +262,20 @@ if __name__ == '__main__':
     print("  dev: " + str(dev_tuples['input'].n_node.shape[0]))
     print(" test: " + str(test_tuples['input'].n_node.shape[0]))
 
-    BATCH_SIZE = 100
-    NUM_MPNN = 6
+    BATCH_SIZE = 128
+    NUM_MPNN = 3
     LEARNING_RATE = 1e-3
     NUM_EPOCHS = 10
     NUM_TRAINING_ITERS = 100
 
     num_sub = math.ceil(n_train/BATCH_SIZE)
 
-    tf.reset_default_graph()
     OUTPUT_EDGE_SIZE = train_tuples['target'].edges.shape[1]
     OUTPUT_NODE_SIZE = train_tuples['target'].nodes.shape[1]
-    OUTPUT_GLOBAL_SIZE = 0
+    OUTPUT_GLOBAL_SIZE = 0    
+
+    tf.reset_default_graph()
+
     model = models.EncodeProcessDecode(edge_output_size=OUTPUT_EDGE_SIZE, node_output_size=OUTPUT_NODE_SIZE, global_output_size=OUTPUT_GLOBAL_SIZE)
 
     optimizer = tf.compat.v1.train.AdamOptimizer(LEARNING_RATE)

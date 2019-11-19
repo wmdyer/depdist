@@ -23,9 +23,10 @@ from graph_nets import utils_tf
 import sonnet as snt
 
 NUM_LAYERS = 1  # Hard-code number of layers in the edge/node/global models.
-LATENT_SIZE = 64  # Hard-code latent layer sizes for demos.
+LATENT_SIZE = 16  # Hard-code latent layer sizes for demos.
 
 NUM_LAYERS_FULL = 1
+LATENT_SIZE_FULL = 16
 
 def make_mlp_model_full():
   """Instantiates a new MLP, followed by LayerNorm.
@@ -36,9 +37,9 @@ def make_mlp_model_full():
   Returns:
     A Sonnet module which contains the MLP and LayerNorm.
   """
-  print("make model_full of " + str(NUM_LAYERS) + " layers / " + str(LATENT_SIZE) + " neurons")
+  print("make model_full of " + str(NUM_LAYERS) + " layers / " + str(LATENT_SIZE_FULL) + " neurons")
   return snt.Sequential([
-      snt.nets.MLP([LATENT_SIZE] * NUM_LAYERS_FULL, activate_final=True),
+      snt.nets.MLP([LATENT_SIZE_FULL] * NUM_LAYERS_FULL, activate_final=True),
       snt.LayerNorm()
   ])
 
