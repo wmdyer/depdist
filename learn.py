@@ -43,10 +43,9 @@ def load_vectors(filename):
     df = pd.read_csv(filename, sep='["]* ["]*', header=None, error_bad_lines=False, engine='python', index_col=0)
     x = run_pca(df.values)
     w = df.index
-    df = pd.concat([pd.DataFrame(w), pd.DataFrame(x)], axis=1)
+    df = pd.concat([pd.DataFrame(w), pd.DataFrame(x)], axis=1, ignore_index=True)
+    df.set_index([0], inplace=True)
     glove = {key: val.values for key, val in df.T.items()}
-    print(glove)
-    exit()
     return glove
 
 def get_word_vector(word, vecs):
