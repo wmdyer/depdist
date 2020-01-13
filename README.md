@@ -7,6 +7,12 @@ After edge weights are learned, a surface realization is generated without any s
 
 ![surface realization](/img/output.png)
 
+## Background
+
+Dyer, W. (2019). DepDist: Surface realization via regex and dependency distance tolerance. In *Proceedings of the Second Workshop on Multilingual Surface Realisation (SR'19)*. Hong Kong. Association for Computational Linguistics. [ACL link](https://www.aclweb.org/anthology/D19-6303.pdf)
+
+Dyer, W. (2019). Weighted posets: Learning surface order from dependency structure. In *Proceedings of the 18th International Workshop on Treebanks and Linguistic Theories (TLT, SyntaxFest 2019)*, pp. 61-73. Paris, France. Association for Computational Linguistics. [ACL link](https://www.aclweb.org/anthology/W19-7807.pdf)
+
 ## Data
 
 ### External
